@@ -14,3 +14,4 @@ def save_agents(result_data:list[dict],filename_json:str=f"data/_data/_agent/{ex
 
     df = pd.DataFrame(result_data)
     df.to_json(filename_json, orient='records', index=False)
+

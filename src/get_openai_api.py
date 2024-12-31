@@ -29,7 +29,6 @@ def parse_responses(file_response, delimiter="==========")->list[dict]:
         print("\n===========")
         content = json.dumps(json_data, indent=2, ensure_ascii=False)
     
-        # 구분자를 기준으로 JSON 객체 분리
         json_strings = content.split(delimiter)
         
         for json_str in json_strings:
@@ -86,15 +85,11 @@ def save_to_csv(data:list[dict], output_file:str):
     print(f"CSV 파일로 저장 완료: {output_file}")
 
 def save_result_csv(experiment_code:str, batch_id:str):
-    # 1. JSON 파일 읽기
     with open(f'data/_data/_agent/{experiment_code}/agents_{experiment_code}.json', 'r', encoding='utf-8') as f:
         agents_data = pd.DataFrame(json.load(f))
 
-
-    # 2. CSV 파일 읽기
     survey_data = pd.read_csv(f'data/_data/_result/{experiment_code}/batch_{experiment_code}_{batch_id}.csv')
-    
-    # 3. 응답 매핑 정의
+
     q1_mapping = {
         'Excellent': 1,
         'Good': 2,
@@ -157,7 +152,6 @@ def save_result_csv(experiment_code:str, batch_id:str):
     final_df = result_df[['id', 'age', 'agecat', 'gender', 'ECON1MOD', 'ECON1BMOD', 
                         'VOTEGEN_POST', 'MOREGUNIMPACT', 'UNITY']]
 
-    # 8. CSV 파일로 저장
     final_df.to_csv(f'data/_data/_result/{experiment_code}/survey_results_{experiment_code}.csv', index=False)
 
     print(final_df)

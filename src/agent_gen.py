@@ -47,12 +47,7 @@ def generate_ages_for_category(category_id:int, n:int=100)->list[int]:
     range_span = high - low
     std = range_span / 6.0  # 범위 폭에 적당한 표준편차 추정
     mean = target_means[category_id]
-    
-    # 트런케이트된 정규분포에서 integer 샘플링
     samples = truncated_normal_sample(n, mean, std, low, high)
-    
-    # 실제 샘플 평균을 확인(오차 감안)
-    actual_mean = statistics.mean(samples)
 
     return samples
 
@@ -89,10 +84,7 @@ def main():
 
     plt.style.use('seaborn-v0_8')
 
-    # 데이터를 DataFrame으로 변환
     df = pd.DataFrame(result_data)
-
-    # 그림 크기 설정
     plt.figure(figsize=(15, 8))
 
     # 나이 그룹별 분포도 그리기
